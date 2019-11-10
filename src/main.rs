@@ -6,17 +6,17 @@ use console::{style, Term};
 use failure::Error;
 use std::collections::VecDeque;
 use std::io::{self, BufRead, BufReader};
-use std::process::{Command, Stdio};
+use duct::cmd;
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
 #[structopt(name = "example", about = "An example of StructOpt usage.")]
 struct Opt {
     #[structopt(
-        short = "n",
-        long = "number",
-        default_value = "10",
-        help = "Number of lines to display"
+    short = "n",
+    long = "number",
+    default_value = "10",
+    help = "Number of lines to display"
     )]
     number: usize,
 
@@ -25,31 +25,34 @@ struct Opt {
 }
 
 fn handle_iterator<T>(buffer_size: usize, collection: T) -> Result<(), Error>
-where
-    T: Iterator<Item = Result<String, std::io::Error>>,
+    where
+        T: Iterator<Item=Result<String, std::io::Error>>,
 {
     let term = Term::stdout();
 
     let mut queue = VecDeque::with_capacity(buffer_size);
-    for _ in 0..buffer_size {
-        queue.push_back("".to_string())
-    }
 
-    let mut past_first_iteration = false;
+    let mut is_first_iteration = true;
+    let mut last_line_count = queue.len();
 
     for mut item in collection.filter_map(Result::ok) {
-        queue.pop_front();
+        if !is_first_iteration {
+            term.clear_last_lines(last_line_count)?;
+        }
+
         item.truncate((term.size().1) as usize);
         queue.push_back(item);
-        if past_first_iteration {
-            term.clear_last_lines(buffer_size)?;
+
+        while queue.len() > buffer_size {
+            queue.pop_front();
         }
 
         for line in queue.iter() {
             term.write_line(line.as_str())?;
         }
 
-        past_first_iteration = true;
+        is_first_iteration = false;
+        last_line_count = queue.len();
     }
     Ok(())
 }
@@ -75,17 +78,14 @@ fn run(command: Vec<String>, count: usize) -> Result<i32, Error> {
         handle_iterator(count, iterator)?;
         Ok(0)
     } else {
-        let mut child = Command::new(&command[0])
-            .args(&command[1..])
-            .stdout(Stdio::piped())
-            .stderr(Stdio::null())
-            .spawn()?;
-        if let Some(ref mut stdout) = child.stdout {
-            let reader = BufReader::new(stdout);
-            handle_iterator(count, reader.lines())?;
+        let child = cmd(&command[0], &command[1..]);
+        let stdout_reader = child.stderr_to_stdout().reader()?;
+        let reader = BufReader::new(&stdout_reader);
+        handle_iterator(count, reader.lines())?;
+        let output = stdout_reader.try_wait()?;
+        match output {
+            Some(output) => Ok(output.status.code().unwrap_or(0)),
+            None => Ok(0)
         }
-
-        let status = child.wait()?;
-        Ok(status.code().unwrap_or(0))
     }
 }

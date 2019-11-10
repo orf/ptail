@@ -18,6 +18,7 @@ exclude = ["images/**", ".github/**"]
 console = "0.9.1"
 structopt = "0.3.4"
 failure = "0.1.6"
+duct = "0.13.3"
 
 [profile.release]
 lto = true
