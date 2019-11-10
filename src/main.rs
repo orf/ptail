@@ -10,7 +10,7 @@ use duct::cmd;
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
-#[structopt(name = "example", about = "An example of StructOpt usage.")]
+#[structopt(about = "Tail, but dynamic.")]
 struct Opt {
     #[structopt(
     short = "n",
@@ -20,7 +20,7 @@ struct Opt {
     )]
     number: usize,
 
-    #[structopt(help = "Command to execute. Use -- to pass flags.")]
+    #[structopt(help = "Command to execute. To pass flags, add -- before: \"ptail -- cmd --flag\"")]
     command: Vec<String>,
 }
 

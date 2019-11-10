@@ -11,6 +11,21 @@ show more than the specified number of lines in your terminal.
 This could be useful if you are executing a command as part of a shell script and you do not wish to show the full and 
 verbose output, but you do want to be able to see what is happening.
 
+# Examples :star:
+
+## Running a command
+
+This will execute `brew bundle install --global` and only show the last 20 lines. The `--` is required to prevent 
+`--global` being interpreted as part of the `ptail` command.
+
+`ptail -n 20 -- brew bundle install --global`
+
+## `tail -f` equivalent
+
+If you don't specify a command it will read from stdin:
+
+`tail -f /var/log/verbose-log | ptail -n 20`
+
 # Install :cd:
 
 ## Homebrew (MacOS + Linux)
