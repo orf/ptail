@@ -29,6 +29,7 @@ fn handle_iterator<T>(buffer_size: usize, collection: T) -> Result<(), Error>
         T: Iterator<Item=Result<String, std::io::Error>>,
 {
     let term = Term::stdout();
+    let is_terminal = term.is_term();
 
     let mut queue = VecDeque::with_capacity(buffer_size);
 
@@ -36,6 +37,12 @@ fn handle_iterator<T>(buffer_size: usize, collection: T) -> Result<(), Error>
     let mut last_line_count = queue.len();
 
     for mut item in collection.filter_map(Result::ok) {
+        // If we are not a terminal, then just proxy the output
+        if !is_terminal {
+            println!("{}", item);
+            continue;
+        }
+
         if !is_first_iteration {
             term.clear_last_lines(last_line_count)?;
         }
