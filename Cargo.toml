@@ -2,6 +2,7 @@
 name = "ptail"
 version = "0.1.0"
 authors = ["Tom Forbes <tom@tomforb.es>"]
+description = "Stream and display a fixed number of lines from a processes output."
 edition = "2018"
 repository = "https://github.com/orf/ptail"
 license = "MIT"
