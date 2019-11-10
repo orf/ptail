@@ -3,6 +3,13 @@ name = "ptail"
 version = "0.1.0"
 authors = ["Tom Forbes <tom@tomforb.es>"]
 edition = "2018"
+repository = "https://github.com/orf/ptail"
+license = "MIT"
+categories = [
+    "development-tools",
+]
+keywords = ["cli"]
+exclude = ["images/**", ".github/**"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -10,3 +17,6 @@ edition = "2018"
 console = "0.9.1"
 structopt = "0.3.4"
 failure = "0.1.6"
+
+[profile.release]
+lto = true
