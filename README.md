@@ -32,6 +32,16 @@ If you don't specify a command it will read from stdin:
 
 `brew tap orf/brew`, then `brew install ptail`
 
+## Arch Linux
+
+There is [an AUR package for `ptail`](https://aur.archlinux.org/packages/ptail/):
+
+```
+git clone https://aur.archlinux.org/ptail.git
+cd ptail
+makepkg -si
+```
+
 ## Binaries (Windows)
 
 Download the latest release from [the github releases page](https://github.com/orf/ptail/releases). Extract it 
