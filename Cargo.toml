@@ -1,6 +1,6 @@
 [package]
 name = "ptail"
-version = "0.2.1"
+version = "0.2.2-alpha.0"
 authors = ["Tom Forbes <tom@tomforb.es>"]
 description = "Stream and display a fixed number of lines from a processes output."
 edition = "2018"
