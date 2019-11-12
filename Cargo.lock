@@ -180,7 +180,7 @@ dependencies = [
 
 [[package]]
 name = "ptail"
-version = "0.2.2"
+version = "0.2.3-alpha.0"
 dependencies = [
  "console 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "duct 0.13.3 (registry+https://github.com/rust-lang/crates.io-index)",
