@@ -3,7 +3,7 @@
 [![Crates.io](https://img.shields.io/crates/v/ptail.svg)](https://crates.io/crates/ptail)
 [![Actions Status](https://github.com/orf/ptail/workflows/CI/badge.svg)](https://github.com/orf/ptail/actions)
 
-![](./images/demo.gif)
+![](./images/readme.gif)
 
 `ptail` is a small, and likely useless, utility that truncates the output from processes. Unlike `tail -f` it will not 
 show more than the specified number of lines in your terminal.
