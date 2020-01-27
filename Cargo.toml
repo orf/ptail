@@ -16,7 +16,7 @@ exclude = ["images/**", ".github/**"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-console = "0.9.1"
+console = "0.9.2"
 structopt = "0.3.8"
 failure = "0.1.6"
 duct = "0.13.3"
