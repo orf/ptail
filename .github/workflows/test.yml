@@ -69,20 +69,3 @@ jobs:
           files: 'ptail*'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  cargo_bloat:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@master
-      - name: Install Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          override: true
-      - name: Run cargo bloat
-        uses: orf/cargo-bloat-action@master
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
