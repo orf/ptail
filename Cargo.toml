@@ -18,7 +18,7 @@ exclude = ["images/**", ".github/**"]
 [dependencies]
 console = "0.9.2"
 structopt = "0.3.11"
-failure = "0.1.6"
+failure = "0.1.7"
 duct = "0.13.3"
 
 #[profile.release]
