@@ -17,7 +17,7 @@ exclude = ["images/**", ".github/**"]
 
 [dependencies]
 console = "0.10.0"
-structopt = "0.3.12"
+structopt = "0.3.13"
 failure = "0.1.7"
 duct = "0.13.3"
 
